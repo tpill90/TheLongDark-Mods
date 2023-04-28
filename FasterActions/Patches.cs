@@ -13,9 +13,11 @@
     [HarmonyPatch]
     public static class Patches
     {
+        public static MelonLogger.Instance Logger = Melon<FasterActions>.Logger;
+        
         [HarmonyPostfix]
         [HarmonyPatch(typeof(CharcoalItem), nameof(CharcoalItem.StartDetailSurvey))]
-        public static void PatchCharcoalMappingTime(CharcoalItem __instance)
+        public static void FasterCharcoalMapping(CharcoalItem __instance)
         {
             // How much time passes in game while surveying.  Default is 15 minutes
             __instance.m_SurveyGameMinutes = 10;
@@ -28,33 +30,77 @@
         [HarmonyPatch(typeof(FireManager), nameof(FireManager.PlayerCalculateFireStartTime))]
         public static void FasterFireStarting(ref float __result)
         {                
-            // Speeds up the action wheel for starting fires by 3X
-            __result = __result / 3;
+            // Speeds up the action wheel for starting fires by 4X
+            __result = __result / 4;
         }
 
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(FoodItem), nameof(FoodItem.Awake))]
+        public static void FasterEating(FoodItem __instance)
+        {
+            Logger.Warning(nameof(FasterEating) + " triggered");
+            __instance.m_TimeToEatSeconds = __instance.m_TimeToEatSeconds / 2;
+            __instance.m_TimeToOpenAndEatSeconds = __instance.m_TimeToOpenAndEatSeconds / 2;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.DrinkFromWaterSupply))]
+        public static void FasterDrinking(WaterSupply ws, float volumeAvailable)
+        {
+            Logger.Warning(nameof(FasterDrinking) + " triggered");
+            ws.m_TimeToDrinkSeconds = 1.4f;
+        }
+
+        //[HarmonyPrefix]
+        //[HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnSelectCleanTool))]
+        //public static void FasterCleaning(Panel_Inventory_Examine __instance)
+        //{
+        //    Logger.Warning(nameof(FasterCleaning) + " triggered");
+        //    __instance.m_CleanTimeSeconds = 1.5f;
+        //}
+
+        //[HarmonyPrefix]
+        //[HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnSelectSharpenTool))]
+        //public static void FasterSharpening(Panel_Inventory_Examine __instance)
+        //{
+        //    Logger.Warning(nameof(FasterSharpening) + " triggered");
+        //    __instance.m_SharpenTimeSeconds = 1.5f;
+        //}
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnHarvest))]
+        public static void FasterHarvesting(Panel_Inventory_Examine __instance)
+        {
+            Logger.Warning(nameof(FasterHarvesting) + " triggered");
+            __instance.m_HarvestTimeSeconds = 1.5f;
+        }
+
+        //[HarmonyPrefix]
+        //[HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnRepair))]
+        //public static void FasterRepair(Panel_Inventory_Examine __instance)
+        //{
+        //    Logger.Warning(nameof(FasterRepair) + " triggered");
+        //    __instance.m_RepairTimeSeconds = 1.5f;
+        //}
+
+        //[HarmonyPrefix]
+        //[HarmonyPatch(typeof(Panel_BreakDown), nameof(Panel_BreakDown.OnBreakDown))]
+        //public static void FasterBreakdown(Panel_BreakDown __instance)
+        //{
+        //    Logger.Warning(nameof(FasterBreakdown) + " triggered");
+        //    __instance.m_SecondsToBreakDown = 1.5f;
+        //}
+
+
         //[HarmonyPostfix]
-        //[HarmonyPatch(typeof(Harvestable), "DoHarvest")]
+        //[HarmonyPatch(typeof(Harvestable), nameof(Harvestable.Harvest))]
         //public static void FasterHarvesting(Harvestable __instance)
         //{
+        //    // Triggered when the harvesting finishes
+        //    Melon<FasterActions>.Logger.Warning("Finished harvesting");
+        //    //Debugger.Break();
         //    //__instance.m_SecondsToHarvest = Settings.options.HarvestTimeModifier;
         //}
 
-
-        //[HarmonyPostfix]
-        //[HarmonyPatch(typeof(BreakDown), nameof(BreakDown.Start))]
-        //public static void QuickerWoodCutting(BreakDown __instance)
-        //{
-        //    // Branches take 5 mins instead of 10
-        //    if (__instance.name == "Branch")
-        //    {
-        //        __instance.m_TimeCostHours /= 2f;
-        //    }
-
-        //    // Limbs take 30 mins base (15 mins with hatchet) instead of 90 mins base (45 mins with hatchet)
-        //    if (__instance.name.EndsWith("Limb"))
-        //    {
-        //        __instance.m_TimeCostHours /= 3f;
-        //    }
-        //}
     }
 }
