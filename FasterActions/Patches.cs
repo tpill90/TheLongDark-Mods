@@ -51,22 +51,6 @@
             ws.m_TimeToDrinkSeconds = 1.4f;
         }
 
-        //[HarmonyPrefix]
-        //[HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnSelectCleanTool))]
-        //public static void FasterCleaning(Panel_Inventory_Examine __instance)
-        //{
-        //    Logger.Warning(nameof(FasterCleaning) + " triggered");
-        //    __instance.m_CleanTimeSeconds = 1.5f;
-        //}
-
-        //[HarmonyPrefix]
-        //[HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnSelectSharpenTool))]
-        //public static void FasterSharpening(Panel_Inventory_Examine __instance)
-        //{
-        //    Logger.Warning(nameof(FasterSharpening) + " triggered");
-        //    __instance.m_SharpenTimeSeconds = 1.5f;
-        //}
-
         [HarmonyPrefix]
         [HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnHarvest))]
         public static void FasterHarvesting(Panel_Inventory_Examine __instance)
@@ -75,6 +59,25 @@
             __instance.m_HarvestTimeSeconds = 1.5f;
         }
 
+        //TODO messes up stuff for some reason.  Creates stuttering
+        //[HarmonyPrefix]
+        //[HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnSelectCleanTool))]
+        //public static void FasterCleaning(Panel_Inventory_Examine __instance)
+        //{
+        //    Logger.Warning(nameof(FasterCleaning) + " triggered");
+        //    __instance.m_CleanTimeSeconds = 1.5f;
+        //}
+
+        //TODO messes up stuff for some reason.  Creates stuttering
+        //[HarmonyPrefix]
+        //[HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnSelectSharpenTool))]
+        //public static void FasterSharpening(Panel_Inventory_Examine __instance)
+        //{
+        //    Logger.Warning(nameof(FasterSharpening) + " triggered");
+        //    __instance.m_SharpenTimeSeconds = 1.5f;
+        //}
+
+        //TODO messes up stuff for some reason.  Creates stuttering
         //[HarmonyPrefix]
         //[HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnRepair))]
         //public static void FasterRepair(Panel_Inventory_Examine __instance)
@@ -83,6 +86,7 @@
         //    __instance.m_RepairTimeSeconds = 1.5f;
         //}
 
+        //TODO messes up stuff for some reason.  Creates stuttering
         //[HarmonyPrefix]
         //[HarmonyPatch(typeof(Panel_BreakDown), nameof(Panel_BreakDown.OnBreakDown))]
         //public static void FasterBreakdown(Panel_BreakDown __instance)
@@ -90,17 +94,5 @@
         //    Logger.Warning(nameof(FasterBreakdown) + " triggered");
         //    __instance.m_SecondsToBreakDown = 1.5f;
         //}
-
-
-        //[HarmonyPostfix]
-        //[HarmonyPatch(typeof(Harvestable), nameof(Harvestable.Harvest))]
-        //public static void FasterHarvesting(Harvestable __instance)
-        //{
-        //    // Triggered when the harvesting finishes
-        //    Melon<FasterActions>.Logger.Warning("Finished harvesting");
-        //    //Debugger.Break();
-        //    //__instance.m_SecondsToHarvest = Settings.options.HarvestTimeModifier;
-        //}
-
     }
 }
