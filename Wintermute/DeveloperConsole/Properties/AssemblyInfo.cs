@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-[assembly: MelonInfo(typeof(EnableFeatProgressInCustomMode.EnableFeatProgressInCustomMode), "DeveloperConsole", "1.0", "tpill90")]
+[assembly: MelonInfo(typeof(DeveloperConsole.DeveloperConsole), "DeveloperConsole", "1.0", "tpill90")]
 [assembly: MelonGame("Hinterland", "TheLongDark")]
 [assembly: AssemblyTitle("DeveloperConsole")]
 [assembly: AssemblyDescription("")]
