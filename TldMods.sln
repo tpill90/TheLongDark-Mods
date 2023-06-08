@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnableFeatProgressInCustomM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FasterActions", "FasterActions\FasterActions.csproj", "{8BAB75A6-552F-4BB9-896B-9DAE9A3CB653}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeveloperConsole", "Wintermute\DeveloperConsole\DeveloperConsole.csproj", "{BE85F53C-B3DE-4853-AAA5-A5954CE62CDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8BAB75A6-552F-4BB9-896B-9DAE9A3CB653}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BAB75A6-552F-4BB9-896B-9DAE9A3CB653}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BAB75A6-552F-4BB9-896B-9DAE9A3CB653}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE85F53C-B3DE-4853-AAA5-A5954CE62CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE85F53C-B3DE-4853-AAA5-A5954CE62CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE85F53C-B3DE-4853-AAA5-A5954CE62CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE85F53C-B3DE-4853-AAA5-A5954CE62CDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
