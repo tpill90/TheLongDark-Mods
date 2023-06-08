@@ -1,4 +1,6 @@
-﻿namespace FasterActions
+﻿using Il2CppSystem.Diagnostics;
+
+namespace FasterActions
 {
     internal class FasterActions : MelonMod
     {
@@ -38,16 +40,21 @@
         [HarmonyPatch(typeof(FoodItem), nameof(FoodItem.Awake))]
         public static void FasterEating(FoodItem __instance)
         {
-            Logger.Warning(nameof(FasterEating) + " triggered");
             __instance.m_TimeToEatSeconds = __instance.m_TimeToEatSeconds / 2;
             __instance.m_TimeToOpenAndEatSeconds = __instance.m_TimeToOpenAndEatSeconds / 2;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.OpenAndUseFoodInventoryItem))]
+        public static void FasterCanOpening(GearItem gi, CanOpeningItem gearOpenedWith)
+        {
+            gearOpenedWith.m_CanOpeningLengthSeconds = 1.4f;
         }
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.DrinkFromWaterSupply))]
         public static void FasterDrinking(WaterSupply ws, float volumeAvailable)
         {
-            Logger.Warning(nameof(FasterDrinking) + " triggered");
             ws.m_TimeToDrinkSeconds = 1.4f;
         }
 
@@ -59,23 +66,19 @@
             __instance.m_HarvestTimeSeconds = 1.5f;
         }
 
-        //TODO messes up stuff for some reason.  Creates stuttering
-        //[HarmonyPrefix]
-        //[HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnSelectCleanTool))]
-        //public static void FasterCleaning(Panel_Inventory_Examine __instance)
-        //{
-        //    Logger.Warning(nameof(FasterCleaning) + " triggered");
-        //    __instance.m_CleanTimeSeconds = 1.5f;
-        //}
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnSelectCleanTool))]
+        public static void FasterCleaning(Panel_Inventory_Examine __instance)
+        {
+            __instance.m_CleanTimeSeconds = 1.5f;
+        }
 
-        //TODO messes up stuff for some reason.  Creates stuttering
-        //[HarmonyPrefix]
-        //[HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnSelectSharpenTool))]
-        //public static void FasterSharpening(Panel_Inventory_Examine __instance)
-        //{
-        //    Logger.Warning(nameof(FasterSharpening) + " triggered");
-        //    __instance.m_SharpenTimeSeconds = 1.5f;
-        //}
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnSelectSharpenTool))]
+        public static void FasterSharpening(Panel_Inventory_Examine __instance)
+        {
+            __instance.m_SharpenTimeSeconds = 1.5f;
+        }
 
         //TODO messes up stuff for some reason.  Creates stuttering
         //[HarmonyPrefix]
