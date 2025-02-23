@@ -1,0 +1,153 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- This needs to be changed to your TLD install directory -->
+    <TheLongDarkPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark\tld_dlc\wintermute</TheLongDarkPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(TheLongDarkPath)\tld.exe</StartProgram>
+    <StartArguments>-console -popupwindow</StartArguments>
+    <StartWorkingDirectory>$(TheLongDarkPath)</StartWorkingDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!--This is the .NET version the mod will be compiled with. Don't change it.-->
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>Latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
+    <!--PDB files give line numbers in stack traces (errors). This is useful for debugging. There are 3 options:-->
+    <!--full has a pdb file created beside the dll.-->
+    <!--embedded has the pdb data embedded within the dll. This is useful because bug reports will then have line numbers.-->
+    <!--none skips creation of pdb data.-->
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <!--This tells the compiler where to look for assemblies. Don't change it.-->
+  <PropertyGroup>
+    <MelonLoaderPath>$(TheLongDarkPath)/MelonLoader/net6</MelonLoaderPath>
+    <ManagedPath>$(TheLongDarkPath)/MelonLoader/Managed</ManagedPath>
+    <Il2CppPath>$(TheLongDarkPath)/MelonLoader/Il2CppAssemblies</Il2CppPath>
+    <ModsPath>$(TheLongDarkPath)/Mods</ModsPath>
+    <AssemblySearchPaths>$(AssemblySearchPaths);$(MelonLoaderPath);$(ManagedPath);$(Il2CppPath);$(ModsPath);</AssemblySearchPaths>
+  </PropertyGroup>
+
+  <!--This tells the compiler to not include referenced assemblies in the output folder.-->
+  <ItemDefinitionGroup>
+    <Reference>
+      <Private>False</Private>
+    </Reference>
+  </ItemDefinitionGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(TheLongDarkPath)/Mods" />
+  </Target>
+
+  <!--This is the list of assemblies that the mod references. Most of these are unnecessary for normal mods, but are included here for completeness.-->
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\TheLongDark\tld_dlc\wintermute\MelonLoader\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="MelonLoader">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\TheLongDark\tld_dlc\wintermute\MelonLoader\MelonLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="ModSettings" />
+    <Reference Include="Assembly-CSharp-firstpass" />
+    <Reference Include="Assembly-CSharp" />
+    <Reference Include="Il2CppMono.Security" />
+    <Reference Include="Il2Cppmscorlib" />
+    <Reference Include="Il2CppNewtonsoft.Json" />
+    <Reference Include="Il2CppSystem.Configuration" />
+    <Reference Include="Il2CppSystem.Core" />
+    <Reference Include="Il2CppSystem.Data" />
+    <Reference Include="Il2CppSystem" />
+    <Reference Include="Il2CppSystem.Numerics" />
+    <Reference Include="Il2CppSystem.Runtime.Serialization" />
+    <Reference Include="Il2CppSystem.Xml" />
+    <Reference Include="Il2CppSystem.Xml.Linq" />
+    <Reference Include="UnhollowerBaseLib">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\TheLongDark\tld_dlc\wintermute\MelonLoader\Dependencies\Il2CppAssemblyGenerator\Il2CppAssemblyUnhollower\UnhollowerBaseLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.DataPrivacy" />
+    <Reference Include="Unity.Analytics.StandardEvents" />
+    <Reference Include="Unity.Burst" />
+    <Reference Include="Unity.Burst.Unsafe" />
+    <Reference Include="Unity.Mathematics" />
+    <Reference Include="Unity.ScriptableBuildPipeline" />
+    <Reference Include="Unity.TextMeshPro" />
+    <Reference Include="Unity.Timeline" />
+    <Reference Include="UnityEngine.AccessibilityModule" />
+    <Reference Include="UnityEngine.AIModule" />
+    <Reference Include="UnityEngine.AndroidJNIModule" />
+    <Reference Include="UnityEngine.AnimationModule" />
+    <Reference Include="UnityEngine.ARModule" />
+    <Reference Include="UnityEngine.AssetBundleModule" />
+    <Reference Include="UnityEngine.AudioModule" />
+    <Reference Include="UnityEngine.ClothModule" />
+    <Reference Include="UnityEngine.ClusterInputModule" />
+    <Reference Include="UnityEngine.ClusterRendererModule" />
+    <Reference Include="UnityEngine.CoreModule" />
+    <Reference Include="UnityEngine.CrashReportingModule" />
+    <Reference Include="UnityEngine.DirectorModule" />
+    <Reference Include="UnityEngine" />
+    <Reference Include="UnityEngine.DSPGraphModule" />
+    <Reference Include="UnityEngine.GameCenterModule" />
+    <Reference Include="UnityEngine.GIModule" />
+    <Reference Include="UnityEngine.GridModule" />
+    <Reference Include="UnityEngine.HotReloadModule" />
+    <Reference Include="UnityEngine.ImageConversionModule" />
+    <Reference Include="UnityEngine.IMGUIModule" />
+    <Reference Include="UnityEngine.InputLegacyModule" />
+    <Reference Include="UnityEngine.InputModule" />
+    <Reference Include="UnityEngine.JSONSerializeModule" />
+    <Reference Include="UnityEngine.LocalizationModule" />
+    <Reference Include="UnityEngine.NVIDIAModule" />
+    <Reference Include="UnityEngine.ParticleSystemModule" />
+    <Reference Include="UnityEngine.PerformanceReportingModule" />
+    <Reference Include="UnityEngine.Physics2DModule" />
+    <Reference Include="UnityEngine.PhysicsModule" />
+    <Reference Include="UnityEngine.ProfilerModule" />
+    <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule" />
+    <Reference Include="UnityEngine.ScreenCaptureModule" />
+    <Reference Include="UnityEngine.SharedInternalsModule" />
+    <Reference Include="UnityEngine.SpriteMaskModule" />
+    <Reference Include="UnityEngine.SpriteShapeModule" />
+    <Reference Include="UnityEngine.StreamingModule" />
+    <Reference Include="UnityEngine.SubstanceModule" />
+    <Reference Include="UnityEngine.SubsystemsModule" />
+    <Reference Include="UnityEngine.TerrainModule" />
+    <Reference Include="UnityEngine.TerrainPhysicsModule" />
+    <Reference Include="UnityEngine.TextCoreFontEngineModule" />
+    <Reference Include="UnityEngine.TextCoreTextEngineModule" />
+    <Reference Include="UnityEngine.TextRenderingModule" />
+    <Reference Include="UnityEngine.TilemapModule" />
+    <Reference Include="UnityEngine.TLSModule" />
+    <Reference Include="UnityEngine.UI" />
+    <Reference Include="UnityEngine.UIElementsModule" />
+    <Reference Include="UnityEngine.UIElementsNativeModule" />
+    <Reference Include="UnityEngine.UIModule" />
+    <Reference Include="UnityEngine.UmbraModule" />
+    <Reference Include="UnityEngine.UNETModule" />
+    <Reference Include="UnityEngine.UnityAnalyticsModule" />
+    <Reference Include="UnityEngine.UnityConnectModule" />
+    <Reference Include="UnityEngine.UnityCurlModule" />
+    <Reference Include="UnityEngine.UnityTestProtocolModule" />
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule" />
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule" />
+    <Reference Include="UnityEngine.UnityWebRequestModule" />
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule" />
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule" />
+    <Reference Include="UnityEngine.VehiclesModule" />
+    <Reference Include="UnityEngine.VFXModule" />
+    <Reference Include="UnityEngine.VideoModule" />
+    <Reference Include="UnityEngine.VirtualTexturingModule" />
+    <Reference Include="UnityEngine.VRModule" />
+    <Reference Include="UnityEngine.WindModule" />
+    <Reference Include="UnityEngine.XRModule" />
+    <Reference Include="UnityEngine.Il2CppAssetBundleManager" />
+    <Reference Include="UnityEngine.Il2CppImageConversionManager" />
+  </ItemGroup>
+</Project>
